@@ -34,16 +34,17 @@ public static class JaccardSimilarityStringUtil
     public static double CalculateSimilarity(string s1, string s2)
     {
         if (s1 == s2)
-            return 1;
+            return 1.0;
 
-        string[] set1 = s1.Split(' ');
-        string[] set2 = s2.Split(' ');
+        // Split strings into sets of words and create HashSets
+        var hashSet1 = new HashSet<string>(s1.Split(' '));
+        var hashSet2 = new HashSet<string>(s2.Split(' '));
 
-        var hashSet1 = new HashSet<string>(set1);
-        var hashSet2 = new HashSet<string>(set2);
+        int originalCount1 = hashSet1.Count;
+        hashSet1.IntersectWith(hashSet2);
+        int intersectionCount = hashSet1.Count;
 
-        int intersectionCount = hashSet1.Intersect(hashSet2).Count();
-        int unionCount = hashSet1.Count + hashSet2.Count - intersectionCount;
+        int unionCount = originalCount1 + hashSet2.Count - intersectionCount;
 
         return (double)intersectionCount / unionCount;
     }
