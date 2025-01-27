@@ -14,7 +14,7 @@
         <AssemblyName>Soenneker.Utils.String.JaccardSimilarity</AssemblyName>
         <PackageId>Soenneker.Utils.String.JaccardSimilarity</PackageId>
         <PackageTags>utils string jaccardsimilarity jaccard similarity comparison fuzzy matching vector jaccardsimilaritystringutil c# .net csharp dotnet</PackageTags>
-        <Copyright>Copyright © 2023 Jake Soenneker</Copyright>
+        <Copyright>Copyright © 2023-2025 Jake Soenneker</Copyright>
         <Authors>Jake Soenneker</Authors>
         <Company>https://soenneker.com</Company>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
