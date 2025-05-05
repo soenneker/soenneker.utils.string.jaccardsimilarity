@@ -1,4 +1,4 @@
-# Contributing to Soenneker.Utils.String.JaccardSimilarity
+﻿# Contributing to Soenneker.Utils.String.JaccardSimilarity
 
 We're excited that you're interested in contributing!
 
