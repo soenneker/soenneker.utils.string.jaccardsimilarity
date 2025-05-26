@@ -1,7 +1,7 @@
 using Soenneker.Tests.FixturedUnit;
 using Xunit;
 
-using FluentAssertions;
+using AwesomeAssertions;
 
 namespace Soenneker.Utils.String.JaccardSimilarity.Tests;
 
