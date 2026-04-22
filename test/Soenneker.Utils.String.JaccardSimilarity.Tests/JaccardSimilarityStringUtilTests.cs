@@ -1,14 +1,13 @@
-using Soenneker.Tests.FixturedUnit;
-using Xunit;
+using Soenneker.Tests.HostedUnit;
 
 using AwesomeAssertions;
 
 namespace Soenneker.Utils.String.JaccardSimilarity.Tests;
 
-[Collection("Collection")]
-public class JaccardSimilarityStringUtilTests : FixturedUnitTest
+[ClassDataSource<Host>(Shared = SharedType.PerTestSession)]
+public class JaccardSimilarityStringUtilTests : HostedUnitTest
 {
-    public JaccardSimilarityStringUtilTests(Fixture fixture, ITestOutputHelper output) : base(fixture, output)
+    public JaccardSimilarityStringUtilTests(Host host) : base(host)
     {
     }
 
