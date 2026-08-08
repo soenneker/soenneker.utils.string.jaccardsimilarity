@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
+using System;
 
 namespace Soenneker.Utils.String.JaccardSimilarity;
 
@@ -35,9 +36,8 @@ public static class JaccardSimilarityStringUtil
         if (s1 == s2)
             return 1.0;
 
-        // Split strings into sets of words and create HashSets
-        var hashSet1 = new HashSet<string>(s1.Split(' '));
-        var hashSet2 = new HashSet<string>(s2.Split(' '));
+        HashSet<string> hashSet1 = Tokenize(s1);
+        HashSet<string> hashSet2 = Tokenize(s2);
 
         int originalCount1 = hashSet1.Count;
         hashSet1.IntersectWith(hashSet2);
@@ -46,5 +46,28 @@ public static class JaccardSimilarityStringUtil
         int unionCount = originalCount1 + hashSet2.Count - intersectionCount;
 
         return (double)intersectionCount / unionCount;
+    }
+
+    private static HashSet<string> Tokenize(string value)
+    {
+        var result = new HashSet<string>(StringComparer.Ordinal);
+        HashSet<string>.AlternateLookup<ReadOnlySpan<char>> lookup = result.GetAlternateLookup<ReadOnlySpan<char>>();
+        ReadOnlySpan<char> span = value;
+        var start = 0;
+
+        // Preserve Split(' ') semantics, including empty entries.
+        for (var i = 0; i <= span.Length; i++)
+        {
+            if (i != span.Length && span[i] != ' ')
+                continue;
+
+            ReadOnlySpan<char> token = span[start..i];
+            if (!lookup.Contains(token))
+                result.Add(token.ToString());
+
+            start = i + 1;
+        }
+
+        return result;
     }
 }
