@@ -4,34 +4,38 @@
 [![](https://img.shields.io/github/actions/workflow/status/soenneker/soenneker.utils.string.jaccardsimilarity/codeql.yml?label=CodeQL&style=for-the-badge)](https://github.com/soenneker/soenneker.utils.string.jaccardsimilarity/actions/workflows/codeql.yml)
 
 # ![](https://user-images.githubusercontent.com/4441470/224455560-91ed3ee7-f510-4041-a8d2-3fc093025112.png) Soenneker.Utils.String.JaccardSimilarity
-### A utility library for comparing strings via the Jaccard similarity algorithm
+A set-based Jaccard similarity calculator for space-delimited strings.
 
 ## Installation
 
-```
+```bash
 dotnet add package Soenneker.Utils.String.JaccardSimilarity
 ```
-
-## Why?
-Jaccard similarity is great for comparing sets of items, and it's often used for tasks like detecting similar documents or recommending content. It's useful because:
-
-### Set-Focused: 
-It works well when you care about what elements are present, not their order.
-
-### Scale Doesn't Matter: 
-It's not influenced by how big the sets are, just by what they share.
-
-### Efficient: 
-It's quick to calculate making it suitable for large datasets.
-
-### Handles Noise Well: 
-It stays reliable even if there's extra, less important information in the sets.
 
 ## Usage
 
 ```csharp
+using Soenneker.Utils.String.JaccardSimilarity;
+
 var text1 = "This is a test";
 var text2 = "This is another test";
 
-double result = JaccardSimilarityStringUtil.CalculateSimilarityPercentage(text1, text2); // 60
+double score = JaccardSimilarityStringUtil.CalculateSimilarity(text1, text2);
+double percentage = JaccardSimilarityStringUtil.CalculateSimilarityPercentage(text1, text2);
+
+// score == 0.6
+// percentage == 60
 ```
+
+The score is `intersection / union` for the two token sets. `CalculateSimilarity` returns a value from `0` to `1`; `CalculateSimilarityPercentage` returns that value multiplied by 100. Identical strings, including two empty strings, return `1` (or `100%`).
+
+## Comparison rules
+
+- Only the literal space character (`' '`) separates tokens; tabs and line breaks remain inside tokens.
+- Matching is ordinal and case-sensitive.
+- Duplicate tokens do not affect the result because each input is converted to a set.
+- Empty tokens are retained, including those produced by leading, trailing, or repeated spaces.
+- Token order is ignored.
+- Punctuation is retained, so `"test"` and `"test."` are different tokens.
+
+Normalize casing, whitespace, and punctuation before calling the utility if your application needs different rules. This is lexical set overlap, not semantic similarity, and both arguments must be non-null.

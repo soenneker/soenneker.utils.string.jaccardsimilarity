@@ -10,7 +10,7 @@ namespace Soenneker.Utils.String.JaccardSimilarity;
 public static class JaccardSimilarityStringUtil
 {
     /// <summary>
-    /// Calculates the similarity percentage between two strings via Cosine Similarity
+    /// Calculates the similarity percentage between two strings using the Jaccard similarity algorithm.
     /// </summary>
     /// <param name="s1">The first string.</param>
     /// <param name="s2">The second string.</param>
