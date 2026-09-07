@@ -62,8 +62,7 @@ public static class JaccardSimilarityStringUtil
                 continue;
 
             ReadOnlySpan<char> token = span[start..i];
-            if (!lookup.Contains(token))
-                result.Add(token.ToString());
+            lookup.Add(token);
 
             start = i + 1;
         }
